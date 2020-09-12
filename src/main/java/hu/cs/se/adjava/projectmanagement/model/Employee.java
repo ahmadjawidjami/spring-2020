@@ -1,10 +1,23 @@
 package hu.cs.se.adjava.projectmanagement.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Employee
  */
+@Entity
+@Table(name = "employees")
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 public class Employee {
 
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer id;
   private String firstName;
   private String lastName;
@@ -49,6 +62,9 @@ public class Employee {
 
   public void setSalary(Double salary) {
     this.salary = salary;
+  }
+
+  public Employee() {
   }
 
   public Employee(Integer id, String firstName, String lastName, String gender, Double salary) {
