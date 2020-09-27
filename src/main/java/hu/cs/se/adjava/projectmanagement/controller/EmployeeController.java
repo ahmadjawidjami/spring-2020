@@ -1,6 +1,6 @@
 package hu.cs.se.adjava.projectmanagement.controller;
 
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import hu.cs.se.adjava.projectmanagement.model.Employee;
-import hu.cs.se.adjava.projectmanagement.repository.EmployeeRepository;
 import hu.cs.se.adjava.projectmanagement.service.EmployeeService;
 
 /**
@@ -39,7 +37,7 @@ public class EmployeeController {
   }
 
   @PostMapping("/employee/add")
-  public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) {
+  public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) throws FileNotFoundException {
 
     Employee savedEmployee = employeeService.addEmployee(employee);
 
