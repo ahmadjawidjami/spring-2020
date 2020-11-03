@@ -18,19 +18,11 @@ public class Employee {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private Integer id;
+  private Integer _id;
   private String firstName;
   private String lastName;
   private String gender;
   private Double salary;
-
-  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
 
   public String getFirstName() {
     return firstName;
@@ -68,11 +60,19 @@ public class Employee {
   }
 
   public Employee(Integer id, String firstName, String lastName, String gender, Double salary) {
-    this.id = id;
+    this._id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.gender = gender;
     this.salary = salary;
+  }
+
+  public Integer get_id() {
+    return _id;
+  }
+
+  public void set_id(Integer _id) {
+    this._id = _id;
   }
 
 }
