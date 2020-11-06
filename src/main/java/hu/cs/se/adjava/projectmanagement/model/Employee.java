@@ -1,12 +1,10 @@
 package hu.cs.se.adjava.projectmanagement.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.util.Set;
 
 /**
  * Employee
@@ -16,13 +14,36 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 public class Employee {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+
   private Integer _id;
   private String firstName;
   private String lastName;
   private String gender;
   private Double salary;
+
+  private Department department;
+
+  private Set<Project> projects;
+
+  @OneToOne(mappedBy = "manager")
+  public Department getDepartment() {
+    return department;
+  }
+
+  public void setDepartment(Department department) {
+    this.department = department;
+  }
+
+  @ManyToMany
+  @JoinTable(name = "employee_projects", joinColumns = @JoinColumn(name = "employee_id"),
+  inverseJoinColumns = @JoinColumn(name = "project_id"))
+  public Set<Project> getProjects() {
+    return projects;
+  }
+
+  public void setProjects(Set<Project> projects) {
+    this.projects = projects;
+  }
 
   public String getFirstName() {
     return firstName;
@@ -66,7 +87,8 @@ public class Employee {
     this.gender = gender;
     this.salary = salary;
   }
-
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
   public Integer get_id() {
     return _id;
   }
