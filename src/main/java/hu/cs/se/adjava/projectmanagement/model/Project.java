@@ -1,10 +1,14 @@
 package hu.cs.se.adjava.projectmanagement.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
+
 public class Project {
 
     private Integer id;
