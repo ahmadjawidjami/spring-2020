@@ -1,10 +1,15 @@
 package hu.cs.se.adjava.projectmanagement.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
+
 public class Department {
 
 
@@ -13,6 +18,8 @@ public class Department {
     private String location;
 
     private Employee manager;
+
+    private Set<Employee> employees;
 
     private Set<Project> projects;
 
@@ -25,6 +32,7 @@ public class Department {
         this.manager = manager;
     }
 
+    @JsonBackReference
     @OneToMany(mappedBy = "department")
     public Set<Project> getProjects() {
         return projects;
@@ -32,6 +40,15 @@ public class Department {
 
     public void setProjects(Set<Project> projects) {
         this.projects = projects;
+    }
+
+    @OneToMany(mappedBy = "workingDepartment")
+    public Set<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Set<Employee> employees) {
+        this.employees = employees;
     }
 
     @Id

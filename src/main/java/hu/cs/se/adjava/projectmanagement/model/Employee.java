@@ -23,7 +23,11 @@ public class Employee {
 
   private Department department;
 
+  private Department workingDepartment;
+
   private Set<Project> projects;
+
+  private Project leadingProject;
 
   @OneToOne(mappedBy = "manager")
   public Department getDepartment() {
@@ -43,6 +47,24 @@ public class Employee {
 
   public void setProjects(Set<Project> projects) {
     this.projects = projects;
+  }
+
+  @ManyToOne
+  public Department getWorkingDepartment() {
+    return workingDepartment;
+  }
+
+  public void setWorkingDepartment(Department workingDepartment) {
+    this.workingDepartment = workingDepartment;
+  }
+
+  @OneToOne(mappedBy = "leader")
+  public Project getLeadingProject() {
+    return leadingProject;
+  }
+
+  public void setLeadingProject(Project leadingProject) {
+    this.leadingProject = leadingProject;
   }
 
   public String getFirstName() {

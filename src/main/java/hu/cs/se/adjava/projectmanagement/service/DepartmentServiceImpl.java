@@ -5,6 +5,8 @@ import hu.cs.se.adjava.projectmanagement.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
 
@@ -18,5 +20,10 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public Department getById(Integer id) {
         return departmentRepository.getOne(id);
+    }
+
+    @Override
+    public List<Department> getAll() {
+        return departmentRepository.findAll();
     }
 }

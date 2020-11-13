@@ -5,6 +5,8 @@ import hu.cs.se.adjava.projectmanagement.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProjectServiceImpl implements ProjectService {
     @Autowired
@@ -12,5 +14,10 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public Project saveProject(Project project) {
         return projectRepository.save(project);
+    }
+
+    @Override
+    public List<Project> getAll() {
+        return projectRepository.findAll();
     }
 }

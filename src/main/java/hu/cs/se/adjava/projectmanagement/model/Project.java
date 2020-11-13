@@ -1,6 +1,7 @@
 package hu.cs.se.adjava.projectmanagement.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -20,6 +21,8 @@ public class Project {
 
     private Set<Employee> employees;
 
+    private Employee leader;
+
     @ManyToOne
     public Department getDepartment() {
         return department;
@@ -36,6 +39,15 @@ public class Project {
 
     public void setEmployees(Set<Employee> employees) {
         this.employees = employees;
+    }
+
+    @OneToOne
+    public Employee getLeader() {
+        return leader;
+    }
+
+    public void setLeader(Employee leader) {
+        this.leader = leader;
     }
 
     @Id
