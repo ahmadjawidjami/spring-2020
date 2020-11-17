@@ -21,7 +21,7 @@ public class Employee {
   private String gender;
   private Double salary;
 
-  private Department department;
+  private Department managingDepartment;
 
   private Department workingDepartment;
 
@@ -30,12 +30,12 @@ public class Employee {
   private Project leadingProject;
 
   @OneToOne(mappedBy = "manager")
-  public Department getDepartment() {
-    return department;
+  public Department getManagingDepartment() {
+    return managingDepartment;
   }
 
-  public void setDepartment(Department department) {
-    this.department = department;
+  public void setManagingDepartment(Department managingDepartment) {
+    this.managingDepartment = managingDepartment;
   }
 
   @ManyToMany

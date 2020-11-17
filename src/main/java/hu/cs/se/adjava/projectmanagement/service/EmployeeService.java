@@ -2,6 +2,7 @@ package hu.cs.se.adjava.projectmanagement.service;
 
 import java.util.List;
 
+import hu.cs.se.adjava.projectmanagement.dto.EmployeeDTO;
 import hu.cs.se.adjava.projectmanagement.model.Employee;
 
 /**
@@ -17,4 +18,6 @@ public interface EmployeeService {
 
   void deleteEmployeeById(Integer id);
 
+    List<EmployeeDTO> convertToDTO(List<Employee> employees);
+    Employee convertToDTO(Employee employee);
 }

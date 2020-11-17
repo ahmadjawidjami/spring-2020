@@ -1,9 +1,12 @@
 package hu.cs.se.adjava.projectmanagement.controller;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
+import hu.cs.se.adjava.projectmanagement.dto.EmployeeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -32,11 +35,13 @@ public class EmployeeController {
 
   @GetMapping("/employee/all")
 
-  public ResponseEntity<List<Employee>> getEmployees() {
+  public ResponseEntity<List<EmployeeDTO>> getEmployees() {
 
     List<Employee> employees = employeeService.getAllEmployees();
 
-    return new ResponseEntity<>(employees, HttpStatus.OK);
+    List<EmployeeDTO> employeeDTOList = employeeService.convertToDTO(employees);
+
+    return new ResponseEntity<>(employeeDTOList, HttpStatus.OK);
 
   }
 
