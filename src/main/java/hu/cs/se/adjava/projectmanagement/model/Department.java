@@ -15,13 +15,23 @@ public class Department {
 
     private Integer id;
     private String name;
-    private String location;
 
     private Employee manager;
 
     private Set<Employee> employees;
 
     private Set<Project> projects;
+
+    private Set<Location> locations;
+
+    @OneToMany(mappedBy = "department")
+    public Set<Location> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(Set<Location> locations) {
+        this.locations = locations;
+    }
 
     @OneToOne
     public Employee getManager() {
@@ -70,11 +80,4 @@ public class Department {
         this.name = name;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
 }

@@ -19,5 +19,5 @@ public interface EmployeeService {
   void deleteEmployeeById(Integer id);
 
     List<EmployeeDTO> convertToDTO(List<Employee> employees);
-    Employee convertToDTO(Employee employee);
+    EmployeeDTO convertToDTO(Employee employee);
 }

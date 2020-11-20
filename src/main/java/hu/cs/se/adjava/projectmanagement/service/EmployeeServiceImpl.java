@@ -65,8 +65,10 @@ public class EmployeeServiceImpl implements EmployeeService {
   }
 
   @Override
-  public Employee convertToDTO(Employee employee) {
-    return null;
+  public EmployeeDTO convertToDTO(Employee employee) {
+    EmployeeDTO employeeDTO = modelMapper.map(employee, EmployeeDTO.class);
+
+    return employeeDTO;
   }
 
 }

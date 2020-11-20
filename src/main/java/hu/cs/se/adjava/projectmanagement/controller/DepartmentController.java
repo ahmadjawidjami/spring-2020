@@ -1,7 +1,9 @@
 package hu.cs.se.adjava.projectmanagement.controller;
 
+import hu.cs.se.adjava.projectmanagement.dto.DepartmentDTO;
 import hu.cs.se.adjava.projectmanagement.model.Department;
 import hu.cs.se.adjava.projectmanagement.service.DepartmentService;
+import hu.cs.se.adjava.projectmanagement.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,17 +20,28 @@ public class DepartmentController {
     @Autowired
     private DepartmentService departmentService;
 
-    @GetMapping("/department/all")
-    public ResponseEntity<List<Department>> getAllDepartments() {
+    @Autowired
+    private EmployeeService employeeService;
 
-        return new ResponseEntity<>(departmentService.getAll(), HttpStatus.OK);
+    @GetMapping("/department/all")
+    public ResponseEntity<List<DepartmentDTO>> getAllDepartments() {
+
+        List<Department> departments = departmentService.getAll();
+
+        List<DepartmentDTO> departmentDTOList = departmentService.convertToDTO(departments);
+
+        return new ResponseEntity<>(departmentDTOList, HttpStatus.OK);
     }
 
     @PostMapping(value = "/department/add")
-    public ResponseEntity<Department> addDepartment(@RequestBody Department department) {
+    public ResponseEntity<DepartmentDTO> addDepartment(@RequestBody Department department) {
+
+        department.setManager(employeeService.getEmployeeById(12));
 
        Department savedDepartment = departmentService.saveDepartment(department);
 
-       return new ResponseEntity<>(savedDepartment, HttpStatus.CREATED);
+       DepartmentDTO departmentDTO = departmentService.convertToDTO(savedDepartment);
+
+       return new ResponseEntity<>(departmentDTO, HttpStatus.CREATED);
     }
 }

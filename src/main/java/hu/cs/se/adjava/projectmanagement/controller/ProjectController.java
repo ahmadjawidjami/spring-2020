@@ -1,5 +1,6 @@
 package hu.cs.se.adjava.projectmanagement.controller;
 
+import hu.cs.se.adjava.projectmanagement.dto.ProjectDTO;
 import hu.cs.se.adjava.projectmanagement.model.Department;
 import hu.cs.se.adjava.projectmanagement.model.Project;
 import hu.cs.se.adjava.projectmanagement.service.DepartmentService;
@@ -24,17 +25,20 @@ public class ProjectController {
     private DepartmentService departmentService;
 
     @GetMapping("/project/all")
-    public ResponseEntity<List<Project>> getAllProjects() {
-        return new ResponseEntity<>(projectService.getAll(), HttpStatus.OK);
+    public ResponseEntity<List<ProjectDTO>> getAllProjects() {
+        List<Project> projects = projectService.getAll();
+        List<ProjectDTO> projectDTOList = projectService.convertToDTO(projects);
+        return new ResponseEntity<>(projectDTOList, HttpStatus.OK);
     }
 
     @PostMapping(path = "/project/add")
-    public ResponseEntity<Project> addProject(@RequestBody Project project) {
+    public ResponseEntity<ProjectDTO> addProject(@RequestBody Project project) {
 
         Department department = departmentService.getById(1);
         project.setDepartment(department);
         Project savedProject = projectService.saveProject(project);
+        ProjectDTO projectDTO = projectService.convertToDTO(savedProject);
 
-        return new ResponseEntity<>(project, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(projectDTO, HttpStatus.ACCEPTED);
     }
 }

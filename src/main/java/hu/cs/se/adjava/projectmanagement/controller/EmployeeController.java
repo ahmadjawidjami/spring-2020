@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hu.cs.se.adjava.projectmanagement.dto.EmployeeDTO;
+import hu.cs.se.adjava.projectmanagement.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -33,6 +34,9 @@ public class EmployeeController {
   @Autowired
   private EmployeeService employeeService;
 
+  @Autowired
+  private DepartmentService departmentService;
+
   @GetMapping("/employee/all")
 
   public ResponseEntity<List<EmployeeDTO>> getEmployees() {
@@ -46,11 +50,16 @@ public class EmployeeController {
   }
 
   @PostMapping("/employee/add")
-  public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) throws FileNotFoundException {
+  public ResponseEntity<EmployeeDTO> addEmployee(@RequestBody Employee employee) {
 
+    employee.setWorkingDepartment(departmentService.getById(2));
     Employee savedEmployee = employeeService.addEmployee(employee);
 
-    return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);
+    EmployeeDTO employeeDTO = employeeService.convertToDTO(savedEmployee);
+
+
+
+    return new ResponseEntity<>(employeeDTO, HttpStatus.CREATED);
   }
 
   @GetMapping("/employee/{id}")
