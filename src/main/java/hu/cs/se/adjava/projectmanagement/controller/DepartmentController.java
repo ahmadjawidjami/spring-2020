@@ -36,7 +36,7 @@ public class DepartmentController {
     @PostMapping(value = "/department/add")
     public ResponseEntity<DepartmentDTO> addDepartment(@RequestBody Department department) {
 
-        department.setManager(employeeService.getEmployeeById(12));
+        //department.setManager(employeeService.getEmployeeById(12));
 
        Department savedDepartment = departmentService.saveDepartment(department);
 

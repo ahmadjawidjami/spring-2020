@@ -52,7 +52,7 @@ public class EmployeeController {
   @PostMapping("/employee/add")
   public ResponseEntity<EmployeeDTO> addEmployee(@RequestBody Employee employee) {
 
-    employee.setWorkingDepartment(departmentService.getById(2));
+    //employee.setWorkingDepartment(departmentService.getById(2));
     Employee savedEmployee = employeeService.addEmployee(employee);
 
     EmployeeDTO employeeDTO = employeeService.convertToDTO(savedEmployee);
