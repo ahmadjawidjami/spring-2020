@@ -57,7 +57,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     for (Employee employee : employees) {
       EmployeeDTO employeeDTO = modelMapper.map(employee, EmployeeDTO.class);
-      employeeDTO.setProjectsIds(employee.getProjects().stream().map(project -> project.getId()).collect(Collectors.toList()));
+//      employeeDTO.setProjectsIds(employee.getProjects().stream().map(project -> project.getId()).collect(Collectors.toList()));
       employeeDTOList.add(employeeDTO);
 
     }

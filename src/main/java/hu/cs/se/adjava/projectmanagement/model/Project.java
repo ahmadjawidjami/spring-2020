@@ -19,9 +19,19 @@ public class Project {
 
     private Department department;
 
-    private Set<Employee> employees;
+    private Set<ProjectAttendance> projectAttendances;
+
 
     private Employee leader;
+
+    @OneToMany(mappedBy = "project")
+    public Set<ProjectAttendance> getProjectAttendances() {
+        return projectAttendances;
+    }
+
+    public void setProjectAttendances(Set<ProjectAttendance> projectAttendances) {
+        this.projectAttendances = projectAttendances;
+    }
 
     @ManyToOne
     public Department getDepartment() {
@@ -32,14 +42,7 @@ public class Project {
         this.department = department;
     }
 
-    @ManyToMany(mappedBy = "projects")
-    public Set<Employee> getEmployees() {
-        return employees;
-    }
 
-    public void setEmployees(Set<Employee> employees) {
-        this.employees = employees;
-    }
 
     @OneToOne
     public Employee getLeader() {

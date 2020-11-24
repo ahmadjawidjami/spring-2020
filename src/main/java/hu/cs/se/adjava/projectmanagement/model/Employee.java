@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -25,9 +26,19 @@ public class Employee {
 
   private Department workingDepartment;
 
-  private Set<Project> projects;
+
+  private Set<ProjectAttendance> projectAttendances;
 
   private Project leadingProject;
+
+  @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+  public Set<ProjectAttendance> getProjectAttendances() {
+    return projectAttendances;
+  }
+
+  public void setProjectAttendances(Set<ProjectAttendance> projectAttendances) {
+    this.projectAttendances = projectAttendances;
+  }
 
   @OneToOne(mappedBy = "manager")
   public Department getManagingDepartment() {
@@ -38,16 +49,6 @@ public class Employee {
     this.managingDepartment = managingDepartment;
   }
 
-  @ManyToMany
-  @JoinTable(name = "employee_projects", joinColumns = @JoinColumn(name = "employee_id"),
-  inverseJoinColumns = @JoinColumn(name = "project_id"))
-  public Set<Project> getProjects() {
-    return projects;
-  }
-
-  public void setProjects(Set<Project> projects) {
-    this.projects = projects;
-  }
 
   @ManyToOne
   public Department getWorkingDepartment() {
@@ -100,6 +101,7 @@ public class Employee {
   }
 
   public Employee() {
+    projectAttendances = new HashSet<>();
   }
 
   public Employee(Integer id, String firstName, String lastName, String gender, Double salary) {

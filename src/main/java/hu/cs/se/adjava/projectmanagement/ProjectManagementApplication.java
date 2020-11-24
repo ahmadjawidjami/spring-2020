@@ -1,8 +1,10 @@
 package hu.cs.se.adjava.projectmanagement;
 
-import hu.cs.se.adjava.projectmanagement.model.Book;
-import hu.cs.se.adjava.projectmanagement.model.BookId;
+import hu.cs.se.adjava.projectmanagement.model.*;
 import hu.cs.se.adjava.projectmanagement.repository.BookRepository;
+import hu.cs.se.adjava.projectmanagement.repository.EmployeeRepository;
+import hu.cs.se.adjava.projectmanagement.repository.ProjectRepository;
+import hu.cs.se.adjava.projectmanagement.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,6 +16,12 @@ public class ProjectManagementApplication implements CommandLineRunner {
 	@Autowired
 	private BookRepository bookRepository;
 
+	@Autowired
+	private ProjectRepository projectRepository;
+
+	@Autowired
+	private EmployeeRepository employeeRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(ProjectManagementApplication.class, args);
 	}
@@ -21,14 +29,11 @@ public class ProjectManagementApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Book book = new Book();
-		BookId bookId = new BookId();
-		bookId.setTitle("Java Programming2");
-		bookId.setLanguage("English");
-		book.setBookId(bookId);
-		book.setAuthor("ABCD");
+//
 
-		bookRepository.save(book);
+
+
+
 
 
 	}
