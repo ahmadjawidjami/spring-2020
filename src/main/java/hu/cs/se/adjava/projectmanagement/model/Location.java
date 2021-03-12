@@ -2,33 +2,12 @@ package hu.cs.se.adjava.projectmanagement.model;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 
-@Entity
-public class Location {
-    private Integer id;
+@Embeddable
+public class Location implements Serializable {
 
     private String name;
-
-    private Department department;
-
-    @ManyToOne
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-    @Id
-    @GeneratedValue
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

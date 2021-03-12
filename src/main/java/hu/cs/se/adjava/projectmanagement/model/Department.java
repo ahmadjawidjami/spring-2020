@@ -3,6 +3,7 @@ package hu.cs.se.adjava.projectmanagement.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -13,7 +14,10 @@ import java.util.Set;
 public class Department {
 
 
+
     private Integer id;
+
+    @NotNull
     private String name;
 
     private Employee manager;
@@ -24,7 +28,9 @@ public class Department {
 
     private Set<Location> locations;
 
-    @OneToMany(mappedBy = "department")
+    @ElementCollection
+    @CollectionTable(name = "locations",
+    joinColumns = @JoinColumn(name = "d_id"))
     public Set<Location> getLocations() {
         return locations;
     }
@@ -43,7 +49,7 @@ public class Department {
     }
 
     @JsonBackReference
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public Set<Project> getProjects() {
         return projects;
     }

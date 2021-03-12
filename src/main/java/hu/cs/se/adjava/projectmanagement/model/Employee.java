@@ -31,7 +31,7 @@ public class Employee {
 
   private Project leadingProject;
 
-  @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   public Set<ProjectAttendance> getProjectAttendances() {
     return projectAttendances;
   }
@@ -40,7 +40,7 @@ public class Employee {
     this.projectAttendances = projectAttendances;
   }
 
-  @OneToOne(mappedBy = "manager")
+  @OneToOne(mappedBy = "manager", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   public Department getManagingDepartment() {
     return managingDepartment;
   }
@@ -59,7 +59,7 @@ public class Employee {
     this.workingDepartment = workingDepartment;
   }
 
-  @OneToOne(mappedBy = "leader")
+  @OneToOne(mappedBy = "leader", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   public Project getLeadingProject() {
     return leadingProject;
   }
