@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,7 +16,10 @@ import java.util.Set;
 public class ProjectManagementApplication implements CommandLineRunner {
 
 	@Autowired
-	private DepartmentRepository departmentRepository;
+	private UserRepository userRepository;
+
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProjectManagementApplication.class, args);
@@ -25,28 +29,11 @@ public class ProjectManagementApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 //
-		Location location1 = new Location();
-		Location location2 = new Location();
-		Location location3 = new Location();
-		location1.setName("Kabul");
-		location2.setName("Herat");
-		location3.setName("Kandahar");
-		Set<Location> locations = new HashSet<>();
-		locations.add(location1);
-		locations.add(location2);
-		locations.add(location3);
-		Department department = new Department();
-		department.setName("Construction");
-		department.setLocations(locations);
+		User user1 = new User(1, "admin", encoder.encode("admin"));
+		User user2 = new User(2, "admin1", encoder.encode("admin1"));
 
-		departmentRepository.save(department);
-
-
-
-
-
-
-
+		userRepository.save(user1);
+		userRepository.save(user2);
 
 	}
 }
