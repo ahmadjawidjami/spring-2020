@@ -16,10 +16,13 @@ import java.util.Set;
 public class ProjectManagementApplication implements CommandLineRunner {
 
 	@Autowired
+
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Autowired
     private UserRepository userRepository;
+
+	
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProjectManagementApplication.class, args);
@@ -28,6 +31,7 @@ public class ProjectManagementApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
+
 		User initialUser = userRepository.findByUsername("admin");
 
 		if (initialUser == null) {
@@ -35,6 +39,9 @@ public class ProjectManagementApplication implements CommandLineRunner {
 			userRepository.save(user1);
 		}
 
+
+		userRepository.save(user1);
+		userRepository.save(user2);
 
 	}
 }

@@ -2,6 +2,7 @@ package hu.cs.se.adjava.projectmanagement.config;
 
 import hu.cs.se.adjava.projectmanagement.filter.JwtFilter;
 import hu.cs.se.adjava.projectmanagement.service.UserDetailsServiceImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -19,9 +20,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
+
 @EnableWebSecurity
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
 
 //    @Autowired
 //    @Qualifier("userDetailsServiceImpl")
@@ -41,6 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
         return authenticationProvider;
+
     }
 
     @Override
@@ -67,5 +71,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+
     }
 }
