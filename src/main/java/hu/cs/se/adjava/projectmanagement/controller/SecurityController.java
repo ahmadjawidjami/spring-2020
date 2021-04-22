@@ -1,6 +1,9 @@
 package hu.cs.se.adjava.projectmanagement.controller;
 
 import hu.cs.se.adjava.projectmanagement.model.JwtRequest;
+import hu.cs.se.adjava.projectmanagement.model.JwtResponse;
+import hu.cs.se.adjava.projectmanagement.model.User;
+import hu.cs.se.adjava.projectmanagement.repository.UserRepository;
 import hu.cs.se.adjava.projectmanagement.util.JwtUtility;
 import jdk.jfr.Unsigned;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -11,6 +14,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,8 +32,14 @@ public class SecurityController {
     @Qualifier("userDetailsServiceImpl")
     private UserDetailsService userDetailsService;
 
-    @PostMapping("/authenticate")
-    public String authenticate(@RequestBody JwtRequest jwtRequest) throws Exception {
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @PostMapping("/api/authenticate")
+    public JwtResponse authenticate(@RequestBody JwtRequest jwtRequest) throws Exception {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getUsername()
                     ,jwtRequest.getPassword()));
@@ -41,7 +51,23 @@ public class SecurityController {
 
         String jwtToken = jwtUtility.generateToken(userDetails);
 
-        return jwtToken;
+        User user = userRepository.findByUsername(jwtRequest.getUsername());
 
+        return new JwtResponse(user.getFirstName() + " " + user.getLastName(),
+                user.getUsername(), jwtToken);
+
+    }
+
+    @PostMapping("/api/register")
+    public JwtResponse register(@RequestBody User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+
+        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
+
+        String jwtToken = jwtUtility.generateToken(userDetails);
+
+        return new JwtResponse(user.getFirstName() + " " + user.getLastName(),
+                user.getUsername(), jwtToken);
     }
 }

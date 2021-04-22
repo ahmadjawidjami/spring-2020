@@ -28,9 +28,13 @@ public class ProjectManagementApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-	    User user1 = new User(1, "admin", bCryptPasswordEncoder.encode("admin"));
-	    userRepository.save(user1);
-	    User user2 = new User(2, "admin1", bCryptPasswordEncoder.encode("admin1"));
-	    userRepository.save(user2);
+		User initialUser = userRepository.findByUsername("admin");
+
+		if (initialUser == null) {
+			User user1 = new User("Jawid", "Jami", "admin", "admin@gmail.com", bCryptPasswordEncoder.encode("admin"));
+			userRepository.save(user1);
+		}
+
+
 	}
 }
